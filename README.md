@@ -1,6 +1,6 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Un buen readme explicando tecnologías, arquitecturas y patrones utilizados, además de otras cosas que debe tener un readme:
 
 ### What is this repository for? ###
 
@@ -23,7 +23,15 @@ This README would normally document whatever steps are necessary to get your app
 * Code review
 * Other guidelines
 
-### Who do I talk to? ###
+### Commits ###
 
-* Repo owner or admin
-* Other community or team contact
+- Initial commit (Version: 0.0.1-SNAPSHOT)
+  - Generate project from https://start.spring.io/
+  - Create initial README.md
+  - Define .gitignore
+- API First (Version: 1.0.0)
+  - Create controller with generic response
+  - Define DTO models
+  - Define error response model
+  - Add model validation and Exception handler
+  - Add OpenApi configuration and annotations
