@@ -35,3 +35,10 @@ Un buen readme explicando tecnologías, arquitecturas y patrones utilizados, ade
   - Define error response model
   - Add model validation and Exception handler
   - Add OpenApi configuration and annotations
+  - Add MVC tests
+- Build H2 database (Version: 1.1.0)
+  - Add dependencies
+  - Add configuration in application.properties
+  - Create entity and repository
+  - Insert data on startup
+  - Add JPA test (Not necessary, only to check is loaded)
