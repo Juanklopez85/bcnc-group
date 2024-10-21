@@ -21,7 +21,7 @@ class PriceControllerTest extends ApiTester {
   private MockMvc mockMvc;
 
   @Test
-  void givenPricesURI_whenMockMVC_thenVerifyResponseOK() throws Exception  {
+  void givenProductPriceRq_whenPricesURI_thenVerifyResponseOK() throws Exception  {
     mockMvc.perform(
         MockMvcRequestBuilders.post("/prices")
             .content(asJsonString(
@@ -40,6 +40,54 @@ class PriceControllerTest extends ApiTester {
         .andExpect(isDateAfter("$.endDate"))
         .andExpect(MockMvcResultMatchers.jsonPath("$.endDate").exists())
         .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(10.15f));
+  }
+
+  @Test
+  void givenProductPriceRqWithoutChainId_whenPricesURI_thenVerifyResponseKO() throws Exception  {
+    mockMvc.perform(
+            MockMvcRequestBuilders.post("/prices")
+                .content(asJsonString(
+                    ProductPriceRq.builder()
+                        .date(LocalDateTime.now())
+                        .productId(1)
+                        .build()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("'chainId' field is required"))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorCode").value("REQUIRED_FIELD"));
+  }
+
+  @Test
+  void givenProductPriceRqWithoutProductId_whenPricesURI_thenVerifyResponseKO() throws Exception  {
+    mockMvc.perform(
+            MockMvcRequestBuilders.post("/prices")
+                .content(asJsonString(
+                    ProductPriceRq.builder()
+                        .date(LocalDateTime.now())
+                        .chainId(1)
+                        .build()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("'productId' field is required"))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorCode").value("REQUIRED_FIELD"));
+  }
+
+  @Test
+  void givenProductPriceRqWithoutDate_whenPricesURI_thenVerifyResponseKO() throws Exception  {
+    mockMvc.perform(
+            MockMvcRequestBuilders.post("/prices")
+                .content(asJsonString(
+                    ProductPriceRq.builder()
+                        .chainId(1)
+                        .productId(1)
+                        .build()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("'date' field is required"))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorCode").value("REQUIRED_FIELD"));
   }
 
 }
