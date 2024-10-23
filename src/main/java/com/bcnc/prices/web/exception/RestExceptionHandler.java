@@ -1,5 +1,6 @@
 package com.bcnc.prices.web.exception;
 
+import com.bcnc.prices.service.domain.NotFoundException;
 import com.bcnc.prices.web.model.ErrorCode;
 import com.bcnc.prices.web.model.ErrorRs;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,16 @@ public class RestExceptionHandler {
     ErrorRs errorRs = ErrorRs.builder()
         .message(exception.getMessage())
         .errorCode(ErrorCode.DESERIALIZATION_ERROR)
+        .build();
+    return ResponseEntity.badRequest().body(errorRs);
+  }
+
+  @ExceptionHandler(NotFoundException.class)
+  @ResponseBody
+  public ResponseEntity<ErrorRs> notFoundException(Exception exception) {
+    ErrorRs errorRs = ErrorRs.builder()
+        .message(exception.getMessage())
+        .errorCode(ErrorCode.NOT_FOUND)
         .build();
     return ResponseEntity.badRequest().body(errorRs);
   }

@@ -1,29 +1,69 @@
 # README #
 
-Un buen readme explicando tecnologías, arquitecturas y patrones utilizados, además de otras cosas que debe tener un readme:
+I tried to create a service as simple as possible. I tried to reduce external libraries and use Spring potential.
 
-### What is this repository for? ###
+## Architecture ##
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+The project is separated in layers: web -> domain -> database
+- Web
+  - Contains the @RestController responsible for MVC and open API.
+  - Receive and validate the requests
+  - Call to domain layer
+  - Manage the error response when there are exceptions with ControllerAdvice.
+- Domain
+  - Contains the @Service classes.
+  - It can't see the web layer.
+  - Call to database and manage the data to response.
+- Database
+  - Contains the @Repository and @Entity to manage the database with JPA.
+  - It can't see the domain layer.
+  - Manage database connections and querys.
 
-### How do I get set up? ###
+Each layer contains they own model to isolate the implementation and definition. IMPORTANT: I have kept the column names like the example to show that DTO model do not have to be the same as DAO.
+- Web model: it uses validation and swagger annotation to define the DTO model.
+- Domain: is used to transform the data received from database.
+- Database: it uses the persistence annotations to manage database data and DAO model.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+#### AOP ####
 
-### Contribution guidelines ###
+It's used to manage logging and monitoring.
 
-* Writing tests
-* Code review
-* Other guidelines
+#### Mapstruct ####
+
+It's an external library to simplify mapping conversion between classes
+
+#### Improvements ####
+
+- The project name and some endpoint must be reviewed. Right now we call to **PriceController** and endpoint **/prices** to get a **ProductPriceRs** from **Rates** table. It is confusing for the developer.
+- The endpoint created in PriceController is a POST for comfort. It could be a GET and pass the params with @RequestParam or @PathVariable.
+- I can use Maven modules to assure the isolation between layers. 
+  ```
+  <modules>
+    <module>bcnc-group-service-database</module>
+    <module>bcnc-group-service-domain</module>
+    <module>bcnc-group-service-web</module>
+  </modules>
+  ```
+- Add authentication
+  
+### Sonar Issues ###
+
+Vulnerabilities found in:
+
+- spring-boot-starter-web
+- spring-boot-starter-test
+
+### TESTS ###
+
+I created different tests for different targets
+- WebMvcTest: to test controllers (web layer). 
+- DataJpaTest: to test database access.
+- Test/ParameterizedTest: to test domain functionality.
+- SpringBootTest: to create integration test.
 
 ### Commits ###
+
+The idea is make small and simple commits to increase the value
 
 - Initial commit (Version: 0.0.1-SNAPSHOT)
   - Generate project from https://start.spring.io/

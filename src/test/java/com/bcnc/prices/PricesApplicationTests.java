@@ -8,6 +8,7 @@ class PricesApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// test to check the project compile
 	}
 
 }
