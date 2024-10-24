@@ -1,9 +1,20 @@
 # README #
 
-I tried to create a service as simple as possible. I tried to reduce external libraries and use Spring potential.
+I tried to create a service as simple as possible in order to reduce external libraries and use Spring potential.
+
+### How to run ###
+
+class com.bcnc.prices.PricesApplication can be run from java: 
+```
+java com.bcnc.prices.PricesApplication
+```
 
 ## Architecture ##
 
+The project is built with maven. Run to build and run test:
+```
+mvn clean install
+```
 The project is separated in layers: web -> domain -> database
 - Web
   - Contains the @RestController responsible for MVC and open API.
@@ -23,6 +34,12 @@ Each layer contains they own model to isolate the implementation and definition.
 - Web model: it uses validation and swagger annotation to define the DTO model.
 - Domain: is used to transform the data received from database.
 - Database: it uses the persistence annotations to manage database data and DAO model.
+
+#### External libraries ####
+
+I have used external libraries with a solid background and community behind. They are developed thinking to be integrated in Spring:
+- [mapstruct](https://mapstruct.org/)
+- [micrometer](https://micrometer.io/)
 
 #### Traceability ####
 
@@ -54,7 +71,9 @@ It's an external library to simplify mapping conversion between classes
 - Add end2end test
 - ControllerAspect:
   - add request logging for HttpMethods different of POST
-  - Request or response could have a big size. Do not have to be logged each time. 
+  - Request or response could have a big size. Do not have to be logged each time.
+- If the service receives a request from another API, check the headers to copy spanId and traceId
+- Dockerization
   
 ### Sonar Issues ###
 
@@ -100,3 +119,6 @@ The idea is make small and simple commits to increase the value
   - Add domain model
   - Connect layers
   - Add and modify tests
+- Add observability
+  - Create aspects for logging
+  - Add traceId and spanId to logs
