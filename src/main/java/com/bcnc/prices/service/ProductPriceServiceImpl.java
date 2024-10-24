@@ -2,6 +2,7 @@ package com.bcnc.prices.service;
 
 import com.bcnc.prices.persistence.RatesRepository;
 import com.bcnc.prices.persistence.entity.Rates;
+import com.bcnc.prices.service.aspect.annotation.LogTime;
 import com.bcnc.prices.service.domain.NotFoundException;
 import com.bcnc.prices.service.domain.ProductPrice;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class ProductPriceServiceImpl implements ProductPriceService {
   private final RatesRepository ratesRepository;
   private final ConversionService conversionService;
 
+  @LogTime
   public ProductPrice getByDate(LocalDateTime date, Long brandId, Long productId) {
     Rates rate = ratesRepository.findRatesByBrandIdAndProductId(brandId, productId)
         .stream()

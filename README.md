@@ -24,9 +24,15 @@ Each layer contains they own model to isolate the implementation and definition.
 - Domain: is used to transform the data received from database.
 - Database: it uses the persistence annotations to manage database data and DAO model.
 
+#### Traceability ####
+
+Spring actuator and micrometer are activated to add traceId and spanId to the logs.
+
 #### AOP ####
 
-It's used to manage logging and monitoring.
+It's used to manage logging.
+- I created a LogAspect and the annotation LogTime to log the execution time for every method with the annotation.
+- I created a ControllerAspect to log the request, response and execution time for every endpoint in a controller.
 
 #### Mapstruct ####
 
@@ -45,6 +51,10 @@ It's an external library to simplify mapping conversion between classes
   </modules>
   ```
 - Add authentication
+- Add end2end test
+- ControllerAspect:
+  - add request logging for HttpMethods different of POST
+  - Request or response could have a big size. Do not have to be logged each time. 
   
 ### Sonar Issues ###
 
@@ -52,6 +62,7 @@ Vulnerabilities found in:
 
 - spring-boot-starter-web
 - spring-boot-starter-test
+- spring-cloud-starter-sleuth
 
 ### TESTS ###
 
@@ -82,3 +93,10 @@ The idea is make small and simple commits to increase the value
   - Create entity and repository
   - Insert data on startup
   - Add JPA test (Not necessary, only to check is loaded)
+- Create business logic (Version: 2.0.0)
+  - Add NotFoundException
+  - Add "findRatesByBrandIdAndProductId" query
+  - Add converters between layers with mapstruct
+  - Add domain model
+  - Connect layers
+  - Add and modify tests

@@ -1,4 +1,4 @@
-package com.bcnc.prices.web;
+package com.bcnc.prices.web.controller;
 
 import com.bcnc.prices.service.ProductPriceService;
 import com.bcnc.prices.service.domain.ProductPrice;

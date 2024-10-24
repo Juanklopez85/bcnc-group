@@ -1,4 +1,4 @@
-package com.bcnc.prices.web;
+package com.bcnc.prices.web.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.bcnc.prices.service.ProductPriceService;
 import com.bcnc.prices.service.domain.NotFoundException;
 import com.bcnc.prices.service.domain.ProductPrice;
+import com.bcnc.prices.web.ApiTester;
 import com.bcnc.prices.web.model.ProductPriceRq;
 import com.bcnc.prices.web.model.ProductPriceRs;
 import java.time.LocalDateTime;
