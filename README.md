@@ -55,7 +55,7 @@ It's used to manage logging.
 
 It's an external library to simplify mapping conversion between classes
 
-#### Improvements ####
+#### TODO Improvements ####
 
 - The project name and some endpoint must be reviewed. Right now we call to **PriceController** and endpoint **/prices** to get a **ProductPriceRs** from **Rates** table. It is confusing for the developer.
 - The endpoint created in PriceController is a POST for comfort. It could be a GET and pass the params with @RequestParam or @PathVariable.
@@ -119,6 +119,6 @@ The idea is make small and simple commits to increase the value
   - Add domain model
   - Connect layers
   - Add and modify tests
-- Add observability
+- Add observability (Version: 2.1.0)
   - Create aspects for logging
   - Add traceId and spanId to logs
